@@ -1,15 +1,17 @@
 # Multibot example in AIOGram v3
 
 # Mac
+Install poetry:
+- brew install poetry
+
 Input command in folder
-1. brew install poetry
-2. poetry remove pymongo
-3. poetry update pymongo
-2. poetry add pytz@2022.7 bson motor
-3. poetry run python bot.py
+1. poetry update
+2. poetry run python bot.py
 
 # Win
+Install poetry:
+- pip install poetry
+
 Input command in folder
-1. pip install poetry
-2. poetry add pytz@2022.7 bson motor
-3. poetry run python bot.py
+1. update
+2. poetry run python bot.py
