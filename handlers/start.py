@@ -4,14 +4,27 @@ from database import UserController
 from config import MENU_TEXT, COLLECTION_ID_FOR_MESSAGE, REGISTATION_LINK
 # from create_bot import bot
 from keyboards import kb_main, kb_make_appointment
-from aiogram import Bot
-from config import TOKENS
+from aiogram import Bot, Router
 
-async def start_command(message: types.Message):
+from config import TOKENS
+# from aiogram.dispatcher.fsm.context import FSMContext
+# from aiogram.dispatcher.fsm.state import StatesGroup, State
+
+
+# class FSMClinicTemplate(StatesGroup):
+#     starting = State()
+#     start = State()
+
+router = Router()
+
+@router.message()
+async def start_command(message: types.Message, bot):
     auth = await UserController.check_auth_user(message.from_user.id)
-    bots = [Bot(token) for token in TOKENS]
-    for bot in bots:
-        bot_info = await bot.get_me()
+    
+    bot_info = await bot.get_me()
+    print(bot_info.first_name)
+    
+    await bot.send_message(message.chat.id, f'Меня зовут:\n{bot_info.first_name}')
     
     if (auth):
         await message.answer('Куда направимся?😚', reply_markup=kb_main)
@@ -65,7 +78,7 @@ async def help_command(message: types.Message):
     await message.delete()
 
 
-def register_handlers_start(dp: Dispatcher):
+def register_handlers_start(dp: Dispatcher, bot):
     dp.message.register(start_command, commands=["start"])
     dp.message.register(main_command, commands=["main"])
     dp.message.register(help_command, commands=['help'])

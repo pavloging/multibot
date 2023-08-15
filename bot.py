@@ -108,7 +108,7 @@ async def main():
     dp.message.register(add_bot, Command(commands="add_bot"))
     dp.message.register(stop_bot, Command(commands="stop_bot"))
 
-    start.register_handlers_start(dp)
+    start.register_handlers_start(dp, bot=bots)
     info.register_handlers_info(dp)
     other.register_handlers_other(dp)
 
